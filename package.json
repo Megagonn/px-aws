@@ -1,0 +1,28 @@
+{
+  "name": "partie-xpender",
+  "version": "1.0.0",
+  "description": "The backend service for the PartieXpender project.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "megagonn",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.7.2",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
+    "cloudinary": "^2.2.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "flutterwave-node-v3": "^1.1.10",
+    "formidable": "^3.5.1",
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^3.9.7",
+    "nodemon": "^3.1.2",
+    "sequelize": "^6.37.3",
+    "socket.io": "^4.7.5"
+  }
+}
