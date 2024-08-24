@@ -171,7 +171,7 @@ const getPost = (req, res) => {
                     // })
                     let allPosts = [];
                     for (let i = 0; i < post.length; i++) {
-                        const element = array[i];
+                        const element = post[i];
                         let comment = await Comment.findAll({
                             where: {
                                 post_id: element.id,
