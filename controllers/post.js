@@ -149,7 +149,7 @@ const getPost = (req, res) => {
                             post_id: post.id,
                         }
                     }).then((comment) => {
-                        res.send({ status: true, payload: { ...post, comments: comment ?? [] } })
+                        res.send({ status: true, payload: { ...post.dataValues, comments: comment ?? [] } })
 
                     })
                     // res.send({ status: true, payload: post })
@@ -171,7 +171,7 @@ const getPost = (req, res) => {
                     // })
                     let allPosts = [];
                     for (let i = 0; i < post.length; i++) {
-                        const element = post[i];
+                        const element = post[i].dataValues;
                         let comment = await Comment.findAll({
                             where: {
                                 post_id: element.id,
