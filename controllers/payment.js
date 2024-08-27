@@ -83,7 +83,7 @@ const setBudget = (req, res) => {
             if (user && user.wallet >= req.body.amount) {
                 User.update({
                     budget: user.budget + parseInt(req.body.amount),
-                    wallet: user.wallet - parseInt(req.body.amount),
+                    // wallet: user.wallet - parseInt(req.body.amount),
                 }, {
                     where: {
                         email: user.email,

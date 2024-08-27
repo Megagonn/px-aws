@@ -754,11 +754,12 @@ const xpend = (xuid, ruid, amount) => {
             console.log(xpender);
 
 
-            if (xpender && xpender.budget > amount) {
+            if (xpender && (xpender.budget > amount || xpender.wallet > amount)) {
                 console.log("seen xpender");
                 //! deduct amount from xpender
                 await User.update({
-                    budget: xpender.budget - amount,
+                    budget: xpender.budget > amount ?  xpender.budget - amount : xpender.budget,
+                    wallet: xpender.wallet - amount,
                     total_xpent: xpender.total_xpent + amount,
                 }, {
                     where: {
