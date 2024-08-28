@@ -116,7 +116,7 @@ app.post('/api/v0/webhooks/flutterwave_webhook', (req, res) => {
 })
 
 io.on("connection", (socket) => {
-    // console.log(socket.handshake.url);
+    console.log(socket.handshake.url);
     console.log("someone connected");
     socket.on('xpending', (info) => {
         console.log(info);
