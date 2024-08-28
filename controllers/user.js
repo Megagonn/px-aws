@@ -758,7 +758,7 @@ const xpend = (xuid, ruid, amount) => {
                 console.log("seen xpender");
                 //! deduct amount from xpender
                 await User.update({
-                    budget: xpender.budget > amount ?  xpender.budget - amount : xpender.budget,
+                    budget: xpender.budget > amount ? xpender.budget - amount : xpender.budget,
                     wallet: xpender.wallet - amount,
                     total_xpent: xpender.total_xpent + amount,
                 }, {
@@ -838,10 +838,11 @@ const addUser = (xuid, ruid) => {
                     }
                 })
             } else {
-
+                console.log(`${ruid} not found`);
             }
         })
     } catch (error) {
+        console.log(error);
 
     }
 }
