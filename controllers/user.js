@@ -826,13 +826,24 @@ const addUser = (xuid, ruid) => {
                 User.findOne({
                     where: { uid: ruid }
                 }).then(async (user) => {
+                    let a = [];
                     if (user) {
-                        let { uid, username, image_URL } = user;
-                        pp.push({ uid, username, image_URL });
-                        await User.update({
-                            // list: JSON.stringify([{ uid, username, image_URL }])
-                            list: JSON.stringify(pp)
-                        }, { where: { uid: xuid } });
+                        let search = pp.find((v, i, a) => {
+                            return v.uid == ruid;
+                        })
+                        console.log(`This is search result${search}`);
+
+                        if (!search) {
+                            let { uid, username, image_URL } = user;
+                            pp.push({ uid, username, image_URL });
+                            await User.update({
+                                // list: JSON.stringify([{ uid, username, image_URL }])
+                                list: JSON.stringify(pp)
+                            }, { where: { uid: xuid } });
+                        } else {
+                            console.log("User found");
+
+                        }
                     } else {
 
                     }
