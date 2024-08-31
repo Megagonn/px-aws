@@ -182,8 +182,8 @@ const getPost = (req, res) => {
 
                     }
                     console.log(allPosts);
-                    res.send({status: true,payload: allPosts})
-                    
+                    res.send({ status: true, payload: allPosts })
+
                 } else {
                     res.send({ status: false, payload: "Something went wrong." })
 
@@ -255,4 +255,35 @@ const comment = (data) => {
     }
 }
 
-module.exports = { addPost, getPost, like, comment, share };
+const deletePost = (req, res) => {
+    try {
+        Post.findOne({
+            where: {
+                id: req.body.id,
+            }
+        }).then((post) => {
+            if (post) {
+                Post.destroy({
+                    where: {
+                        id: req.body.id
+                    }
+                }).then((deleted) => {
+                    if (deleted) {
+                        res.send({ status: true, payload: "Post deleted successfully" })
+                    } else {
+                        res.send({ status: false, payload: "Something went wrong." })
+
+                    }
+                })
+            } else {
+                res.send({ status: false, payload: "Post not found" })
+
+            }
+        })
+    } catch (error) {
+        res.send({ status: false, payload: "Something went wrong." })
+
+    }
+}
+
+module.exports = { addPost, getPost, like, comment, share, deletePost };
