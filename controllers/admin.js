@@ -65,7 +65,7 @@ const addAdmin = async (req, res) => {
             if (err) {
                 res.send({ status: false, payload: err.message });
             } else {
-                console.log(generatePassword);
+                console.log(generatedPassword);
                 console.log(upload);
                 console.log(upload.url);
 
