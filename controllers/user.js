@@ -562,6 +562,22 @@ const getUser = (req, res) => {
     }
 }
 
+const getAllUsers = (req, res) =>{
+    try {
+        User.findAll({}).then((users) =>{
+            if (users) {
+                res.send({status: true, payload: users})
+            } else {
+                
+                res.send({status: false, payload: "No user found."})
+            }
+        })
+    } catch (error) {
+        res.send({ status: false, payload: "Something went wrong. Please try again." });
+        
+    }
+}
+
 const notification = (req, res) => {
     try {
         Notification.findAll({
@@ -917,4 +933,4 @@ const getLeaderboard = (req, res) => {
     }
 }
 
-module.exports = { allUsers, signup, login, resendOtp, verifyOTP, resetPassword, addAddress, getUser, notification, updateProfile, deleteAccount, addImageURL, topup, getBalance, bioMetricLogin, xpend, addUser, getList, fetchTransactions, getLeaderboard };
+module.exports = { allUsers, signup, login, resendOtp, verifyOTP, resetPassword, addAddress, getUser, notification, updateProfile, deleteAccount, addImageURL, topup, getBalance, bioMetricLogin, xpend, addUser, getList, fetchTransactions, getLeaderboard, getAllUsers };

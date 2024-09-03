@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const port = process.env.MYSQL_ADDON_PORT;
 const userRoute = require('./routes/user.route');
 const postRoute = require('./routes/post.route');
+const adminRoute = require('./routes/admin.route');
 const { Server } = require("socket.io");
 
 const { createServer } = require("node:http");
@@ -50,6 +51,7 @@ app.get('/', (req, res) => res.send("Hello, world!\n\nWelcome to partie - xpende
 app.get('/download_apk', (req, res) => res.sendFile(__dirname + '/partixpender.apk'));
 app.use("/api/v0/users", userRoute);
 app.use("/api/v0/posts", postRoute);
+app.use("/api/v0/admins", adminRoute);
 
 
 //webhooks
@@ -162,6 +164,14 @@ io.on("connection", (socket) => {
         })
     })
 })
+
+app.get("/delete_account", (req, res)=>{
+    res.sendFile(__dirname +'/static/delete_account.html');
+});
+app.get("/privacy", (req, res)=>{
+    res.sendFile(__dirname +'/static/privacy.html');
+});
+app.get('/support', (req, res) => res.sendFile(__dirname +'/static/support.html'));
 
 server.listen(port, () => {
     console.log(`PartieXpender is listening on ${port}`);
