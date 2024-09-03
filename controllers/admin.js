@@ -65,6 +65,7 @@ const addAdmin = async (req, res) => {
             if (err) {
                 res.send({ status: false, payload: err.message });
             } else {
+                console.log(generatePassword);
                 console.log(upload);
                 console.log(upload.url);
 
@@ -85,9 +86,9 @@ const addAdmin = async (req, res) => {
                                 imageURL: upload.secure_url,
                                 role: body.role,
                                 status: true,
-                            }).then(async(queryResult) => {
+                            }).then(async (queryResult) => {
                                 if (queryResult) {
-                                    await password(body.email, `${body.first_name + ' ' + body.last_name}`, generatedPassword,);
+                                    // await password(body.email, `${body.first_name + ' ' + body.last_name}`, generatedPassword,);
                                     res.send({ status: true, payload: "Admin onboarding successful." })
                                 } else {
                                     res.send({ status: false, payload: "Something went wrong. Admin onboarding failed.\nPlease try agian." });
@@ -235,7 +236,7 @@ const updateProfile = async (req, res) => {
         let body = req.body;
         // console.log(body.image.typeof());
         console.log(typeof body.image);
-        var tempFilePath = (typeof body.image== "string") ? body.image : await createTempFile(body.image);
+        var tempFilePath = (typeof body.image == "string") ? body.image : await createTempFile(body.image);
         var i = body.image.typeof == "string" ? body.image : (await cloudinary.v2.uploader.upload(tempFilePath)).secure_url;
         Admin.update({
             name: body.name,
