@@ -189,7 +189,7 @@ const resetPassword = (req, res) => {
             }
         }).then(async (admin) => {
             if (admin) {
-                let newPassword = generatePassword();
+                let newPassword = req.body.password;
                 await email.send({
                     subject: "ADMIN: NEW PASSWORD",
                     to: req.body.email,
