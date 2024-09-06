@@ -5,6 +5,7 @@ const bcrypt = require('bcryptjs');
 const { default: Sendchamp } = require('sendchamp-sdk');
 const { generatePassword, createTempFile } = require('../helpers/methods');
 const { dbConfig } = require('../db/db');
+const { Transaction } = require('../models/transaction.model');
 // const { password } = require('../mail/mailer');
 
 const sendchamp = new Sendchamp({
@@ -230,6 +231,15 @@ const allAdmin = (req, res) => {
         res.send({ status: false, payload: error.message });
     }
 }
+const allTransactions = (req, res) => {
+    try {
+        Transaction.findAll().then((transactions) => {
+            res.send({ status: true, payload: transactions });
+        })
+    } catch (error) {
+        res.send({ status: false, payload: error.message });
+    }
+}
 
 const updateProfile = async (req, res) => {
     try {
@@ -259,4 +269,4 @@ const updateProfile = async (req, res) => {
     }
 }
 
-module.exports = { login, addAdmin, suspendAdmin, resetPassword, allAdmin, updateProfile }
+module.exports = { login, addAdmin, suspendAdmin, resetPassword, allAdmin, updateProfile, allTransactions }
