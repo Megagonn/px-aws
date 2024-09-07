@@ -6,6 +6,7 @@ const { default: Sendchamp } = require('sendchamp-sdk');
 const { generatePassword, createTempFile } = require('../helpers/methods');
 const { dbConfig } = require('../db/db');
 const { Transaction } = require('../models/transaction.model');
+const { User } = require('../models/user.model');
 // const { password } = require('../mail/mailer');
 
 const sendchamp = new Sendchamp({
@@ -240,6 +241,33 @@ const allTransactions = (req, res) => {
         res.send({ status: false, payload: error.message });
     }
 }
+const suspendUser = (req, res) => {
+    try {
+        User.findOne({
+            where: {
+                uid: req.body.uid
+            }
+        }).then((user) => {
+            if (user) {
+                User.update({
+                    is_active: req.body.status
+                }, {
+                    where: {
+                        uid: user.uid
+                    }
+                }).then((updated) => {
+
+                    res.send({ status: true, payload: "Successfully." });
+                })
+            } else {
+                res.send({ status: false, payload: "User not found." });
+
+            }
+        })
+    } catch (error) {
+        res.send({ status: false, payload: error.message });
+    }
+}
 
 const updateProfile = async (req, res) => {
     try {
@@ -269,4 +297,4 @@ const updateProfile = async (req, res) => {
     }
 }
 
-module.exports = { login, addAdmin, suspendAdmin, resetPassword, allAdmin, updateProfile, allTransactions }
+module.exports = { login, addAdmin, suspendAdmin, resetPassword, allAdmin, updateProfile, allTransactions, suspendUser }

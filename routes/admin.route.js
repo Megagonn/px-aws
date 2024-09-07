@@ -1,5 +1,5 @@
 const express = require('express');
-const { login, addAdmin, suspendAdmin, resetPassword, allAdmin, completeTask, cancelTask, quickPickups, updateProfile, allTransactions } = require('../controllers/admin');
+const { login, addAdmin, suspendAdmin, resetPassword, allAdmin, completeTask, cancelTask, quickPickups, updateProfile, allTransactions, suspendUser } = require('../controllers/admin');
 const { getAllUsers } = require('../controllers/user');
 const router = express.Router();
 
@@ -11,5 +11,6 @@ router.post("/admin/reset_password", resetPassword);
 router.post("/admin/update_profile", updateProfile);
 router.get("/admin/all_users", getAllUsers);
 router.get("/admin/transactions", allTransactions);
+router.get("/admin/suspend", suspendUser);
 
 module.exports = router;
