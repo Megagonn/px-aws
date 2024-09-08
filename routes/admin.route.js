@@ -11,6 +11,6 @@ router.post("/admin/reset_password", resetPassword);
 router.post("/admin/update_profile", updateProfile);
 router.get("/admin/all_users", getAllUsers);
 router.get("/admin/transactions", allTransactions);
-router.get("/admin/suspend", suspendUser);
+router.post("/admin/suspend", suspendUser);
 
 module.exports = router;
