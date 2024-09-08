@@ -213,8 +213,8 @@ const login = (req, res) => {
                                 }
                             }).then(async (update) => {
                                 if (update) {
-                                    sendMail("Hello! Welcome", email, "You are welcome")
                                     let { id, email, phone, image_URL, first_name, last_name, uid, username } = queryResult;
+                                    sendMail("Hello! Welcome", email, "You are welcome")
                                     res.status(200).send({
                                         status: true,
                                         payload: {
