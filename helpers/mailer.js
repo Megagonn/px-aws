@@ -7,7 +7,7 @@ const mg = mailgun.client({ username: 'meg', key: process.env.MAILGUN_API_KEY })
 const sendMail = (subject, to, content) => {
 
     mg.messages.create('sandbox3d50866775f34b129cc28922b27d0131.mailgun.org', {
-        from: "PARTYXPENDER",
+        from: "PARTYXPENDER <mgt@partyxpender.com>",
         to: [to],
         subject: subject,
         text: content,
