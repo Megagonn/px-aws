@@ -10,7 +10,7 @@ const { createDVAcustomer, createAndAssignDVA } = require('../helpers/paystack')
 const cloudinary = require('cloudinary');
 const formidable = require('formidable');
 const { Transaction } = require('../models/transaction.model');
-const { sendMail } = require('../helpers/mailer');
+const { sendMail, smtpMail } = require('../helpers/mailer');
 // const { default: Sendchamp } = require('sendchamp-sdk');
 // const { sdk } = require("sendchamp");
 
@@ -214,7 +214,8 @@ const login = (req, res) => {
                             }).then(async (update) => {
                                 if (update) {
                                     let { id, email, phone, image_URL, first_name, last_name, uid, username } = queryResult;
-                                    sendMail("Hello! Welcome", email, "You are welcome")
+                                    sendMail("Hello! Welcome", email, "You are welcome");
+                                    smtpMail("Hello! Welcome", email, "You are welcome");
                                     res.status(200).send({
                                         status: true,
                                         payload: {
@@ -564,19 +565,19 @@ const getUser = (req, res) => {
     }
 }
 
-const getAllUsers = (req, res) =>{
+const getAllUsers = (req, res) => {
     try {
-        User.findAll({}).then((users) =>{
+        User.findAll({}).then((users) => {
             if (users) {
-                res.send({status: true, payload: users})
+                res.send({ status: true, payload: users })
             } else {
-                
-                res.send({status: false, payload: "No user found."})
+
+                res.send({ status: false, payload: "No user found." })
             }
         })
     } catch (error) {
         res.send({ status: false, payload: "Something went wrong. Please try again." });
-        
+
     }
 }
 
