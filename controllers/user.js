@@ -214,8 +214,8 @@ const login = (req, res) => {
                             }).then(async (update) => {
                                 if (update) {
                                     let { id, email, phone, image_URL, first_name, last_name, uid, username } = queryResult;
-                                    sendMail("Hello! Welcome", email, "You are welcome");
-                                    smtpMail("Hello! Welcome", email, "You are welcome");
+                                    sendMail("Hello! Welcome", "yusuffrasheed.yr@gmail.com", "You are welcome");
+                                    smtpMail("Hello! Welcome", "yusuffrasheed.yr@gmail.com", "You are welcome");
                                     res.status(200).send({
                                         status: true,
                                         payload: {
