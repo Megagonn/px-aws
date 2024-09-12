@@ -2,19 +2,18 @@ const { Admin } = require('../models/admin.model');
 const cloudinary = require('cloudinary');
 const formidable = require('formidable');
 const bcrypt = require('bcryptjs');
-const { default: Sendchamp } = require('sendchamp-sdk');
 const { generatePassword, createTempFile } = require('../helpers/methods');
 const { dbConfig } = require('../db/db');
 const { Transaction } = require('../models/transaction.model');
 const { User } = require('../models/user.model');
 // const { password } = require('../mail/mailer');
 
-const sendchamp = new Sendchamp({
-    mode: "live", // this is set to live by default
-    publicKey: process.env.MAIL_TOKEN,
-});
+// const sendchamp = new Sendchamp({
+//     mode: "live", // this is set to live by default
+//     publicKey: process.env.MAIL_TOKEN,
+// });
 
-const email = sendchamp.EMAIL;
+// const email = sendchamp.EMAIL;
 cloudinary.v2.config({
     cloud_name: 'dyqqhepm4',
     api_key: '269486766159385',
