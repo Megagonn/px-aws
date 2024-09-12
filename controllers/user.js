@@ -10,7 +10,7 @@ const { createDVAcustomer, createAndAssignDVA } = require('../helpers/paystack')
 const cloudinary = require('cloudinary');
 const formidable = require('formidable');
 const { Transaction } = require('../models/transaction.model');
-const { sendMail, smtpMail } = require('../helpers/mailer');
+const { sendMail } = require('../helpers/mailer');
 // const { default: Sendchamp } = require('sendchamp-sdk');
 // const { sdk } = require("sendchamp");
 
@@ -214,8 +214,9 @@ const login = (req, res) => {
                             }).then(async (update) => {
                                 if (update) {
                                     let { id, email, phone, image_URL, first_name, last_name, uid, username } = queryResult;
-                                    sendMail("Hello! Welcome", "yusuffrasheed.yr@gmail.com", "You are welcome");
-                                    smtpMail("Hello! Welcome", "yusuffrasheed.yr@gmail.com", "You are welcome");
+                                    sendMail();
+                                    // sendmail/
+                                    // smtpMail("Hello! Welcome", "yusuffrasheed.yr@gmail.com", "You are welcome");
                                     res.status(200).send({
                                         status: true,
                                         payload: {
