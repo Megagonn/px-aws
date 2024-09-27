@@ -119,25 +119,9 @@ const signup = async (req, res) => {
                                                         timestamp: date,
                                                     }),
                                                 }),
-                                                // await mailer.welcome(result.email, `${body.first_name + ' ' + body.last_name}`),
-                                                // verification.sendOTP({
-                                                //     channel: "sms",
-                                                //     sender: "Sendchamp",
-                                                //     token_type: "numeric",
-                                                //     token_length: 4,
-                                                //     expiration_time: 15,
-                                                //     token: userotp.otp,
-                                                //     customer_mobile_number: body.phone
-                                                // }),
-                                                // verification.sendOTP({
-                                                //     channel: "email",
-                                                //     sender: "Sendchamp",
-                                                //     token_type: "numeric",
-                                                //     token_length: 4,
-                                                //     expiration_time: 15,
-                                                //     token: userotp.otp,
-                                                //     customer_email_address: body.email
-                                                // })
+                                                sendMail(result.email, "Welcome to PartieXpender.", "Welcome to PARTYXPENDER! 🎉\n\nWe’re excited to have you join our community. Explore, xpend & enjoy, and make the most of all the features we’ve designed to help you enjoy your time. If you need any assistance, our support team is here to help.\n\nLet’s get started on this exciting experience together!"),
+                                                sendMail(result.email, "PARTYXPENDER - SIGNUP OTP", `Welcome to PARTYXPENDER! 🎉\n\nYour otp is ${userotp.otp}, it will expire in 15 minutes.`),
+
                                             ])
                                             res.send({ status: true, payload: { msg: "Registration successful!", id: result.id, token: jwtoken, email: result.email, phone: result.phone, uid: result.uid } });
                                         } else {
@@ -214,9 +198,8 @@ const login = (req, res) => {
                             }).then(async (update) => {
                                 if (update) {
                                     let { id, email, phone, image_URL, first_name, last_name, uid, username } = queryResult;
-                                    sendMail();
-                                    // sendmail/
-                                    // smtpMail("Hello! Welcome", "yusuffrasheed.yr@gmail.com", "You are welcome");
+                                    // sendMail();
+                                    sendMail(result.email, "PARTYXPENDER - SIGNUP OTP", `Welcome to PARTYXPENDER! 🎉\n\nYour otp is 3478, it will expire in 15 minutes.`),
                                     res.status(200).send({
                                         status: true,
                                         payload: {
