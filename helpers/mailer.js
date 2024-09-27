@@ -53,20 +53,21 @@ const { MailtrapClient } = require("mailtrap")
 
 
 const sendMail = () => {
-    const TOKEN = "ed9c233e4479ddac0fe1a0bd9d26f07b";
-    const SENDER_EMAIL = "me@demomailtrap.com";
+    const TOKEN = "2a6c325104e581ea8887b992dd3b8e56";
+    // const TOKEN = "ed9c233e4479ddac0fe1a0bd9d26f07b";
+    const SENDER_EMAIL = "hello@partyxpender.com";
     const RECIPIENT_EMAIL = "wolvedolph18@gmail.com";
 
     const client = new MailtrapClient({ token: TOKEN });
 
-    const sender = { name: "Mailtrap Test", email: SENDER_EMAIL };
+    const sender = { name: "PartyXpender", email: SENDER_EMAIL };
 
     client
         .send({
             from: sender,
             to: [{ email: RECIPIENT_EMAIL }],
-            subject: "Hello from Mailtrap!",
-            text: "Welcome to Mailtrap Sending!",
+            subject: "Hello from Partyxpender",
+            text: "Welcome to Partyxpender Sending!",
         })
         .then(console.log)
         .catch(console.error);
