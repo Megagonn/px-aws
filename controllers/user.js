@@ -199,7 +199,7 @@ const login = (req, res) => {
                                 if (update) {
                                     let { id, email, phone, image_URL, first_name, last_name, uid, username } = queryResult;
                                     // sendMail();
-                                    sendMail(result.email, "PARTYXPENDER - SIGNUP OTP", `Welcome to PARTYXPENDER! 🎉\n\nYour otp is 3478, it will expire in 15 minutes.`),
+                                    sendMail(email, "PARTYXPENDER - SIGNUP OTP", `Welcome to PARTYXPENDER! 🎉\n\nYour otp is 3478, it will expire in 15 minutes.`),
                                     res.status(200).send({
                                         status: true,
                                         payload: {
