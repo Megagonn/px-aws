@@ -120,7 +120,7 @@ const signup = async (req, res) => {
                                                     }),
                                                 }),
                                                 sendMail(result.email, "Welcome to PartieXpender.", "Welcome to PARTYXPENDER! 🎉\n\nWe’re excited to have you join our community. Explore, xpend & enjoy, and make the most of all the features we’ve designed to help you enjoy your time. If you need any assistance, our support team is here to help.\n\nLet’s get started on this exciting experience together!"),
-                                                sendMail(result.email, "PARTYXPENDER - SIGNUP OTP", `Welcome to PARTYXPENDER! 🎉\n\nYour otp is ${userotp.otp}, it will expire in 15 minutes.`),
+                                                sendMail(result.email, "PARTYXPENDER - SIGNUP OTP", `Welcome to PARTYXPENDER! 🎉\n\nYour otp is ${userotp.otp}, it will expire in 15 minutes. Do not share with anyone. \n\nIf you do not initiate this request, kindly reply to this email or get in touch with us via Whatsapp or phone with +234-901-9517-438`),
 
                                             ])
                                             res.send({ status: true, payload: { msg: "Registration successful!", id: result.id, token: jwtoken, email: result.email, phone: result.phone, uid: result.uid } });
@@ -199,7 +199,7 @@ const login = (req, res) => {
                                 if (update) {
                                     let { id, email, phone, image_URL, first_name, last_name, uid, username } = queryResult;
                                     // sendMail();
-                                    sendMail(email, "PARTYXPENDER - SIGNUP OTP", `Welcome to PARTYXPENDER! 🎉\n\nYour otp is 3478, it will expire in 15 minutes.`),
+                                    // sendMail(email, "PARTYXPENDER - SIGNUP OTP", `Welcome to PARTYXPENDER! 🎉\n\nYour otp is 3478, it will expire in 15 minutes.`),
                                     res.status(200).send({
                                         status: true,
                                         payload: {
@@ -325,34 +325,15 @@ const resendOtp = async (req, res) => {
             }).then(async (update) => {
                 console.log(update);
                 if (update) {
-                    // await Promise.all([
-                    //     verification.sendOTP({
-                    //         channel: "sms",
-                    //         sender: "Sendchamp",
-                    //         token_type: "numeric",
-                    //         token_length: 4,
-                    //         expiration_time: 15,
-                    //         token: userotp.otp,
-                    //         customer_mobile_number: body.phone
-                    //     }),
-                    //     verification.sendOTP({
-                    //         channel: "email",
-                    //         sender: "Sendchamp",
-                    //         token_type: "numeric",
-                    //         token_length: 4,
-                    //         expiration_time: 15,
-                    //         token: userotp.otp,
-                    //         customer_email_address: body.email
-                    //     })
-                    // ])
+                    sendMail(email, "PARTYXPENDER - RESEND OTP", `Hi, \n\nYour otp is ${userotp.otp}, it will expire in 15 minutes. Do not share with anyone. \n\nIf you do not initiate this request, kindly reply to this email or get in touch with us via Whatsapp or phone with +234-901-9517-438`),
 
                     res.send({ status: true, payload: "OTP has been resent successfully. Expires in 15 minutes." });
                 } else {
-                    res.send({ status: false, payload: "Couldn't resend OTP. Invalid email or phone." })
+                    res.send({ status: false, payload: "Couldn't resend OTP. Invalid email." })
                 }
             })
         } else {
-            res.send({ status: false, payload: "Couldn't resend OTP.\nEnter a valid email address or phone number" })
+            res.send({ status: false, payload: "Couldn't resend OTP.\nEnter a valid email address." })
         }
     } catch (error) {
         console.log(error);
