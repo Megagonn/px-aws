@@ -325,7 +325,7 @@ const resendOtp = async (req, res) => {
             }).then(async (update) => {
                 console.log(update);
                 if (update) {
-                    sendMail(email, "PARTYXPENDER - RESEND OTP", `Hi, \n\nYour otp is ${userotp.otp}, it will expire in 15 minutes. Do not share with anyone. \n\nIf you do not initiate this request, kindly reply to this email or get in touch with us via Whatsapp or phone with +234-901-9517-438`),
+                    sendMail(body.email, "PARTYXPENDER - RESEND OTP", `Hi, \n\nYour otp is ${userotp.otp}, it will expire in 15 minutes. Do not share with anyone. \n\nIf you do not initiate this request, kindly reply to this email or get in touch with us via Whatsapp or phone with +234-901-9517-438`),
 
                     res.send({ status: true, payload: "OTP has been resent successfully. Expires in 15 minutes." });
                 } else {
