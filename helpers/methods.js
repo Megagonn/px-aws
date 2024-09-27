@@ -6,8 +6,8 @@ const generateOtp = () => {
     var otp = Math.ceil(Math.random() * 10000).toString();
     otp = otp.length < 3 ? otp.concat('9') : otp;
     otp = otp.length < 4 ? otp.concat('7') : otp;
-    // return otp;
-    return "3793";
+    return otp;
+    // return "3793";
 }
 const uuid = (phoneNumber) => {
     // const charset = "0123456789";
@@ -15,7 +15,7 @@ const uuid = (phoneNumber) => {
     // for (let i = 0, n = charset.length; i < 7; ++i) {
     //     uuid += charset.charAt(Math.floor(Math.random() * n));
     // }
-   return phoneNumber.startsWith("0") ? phoneNumber.slice(1, ) : phoneNumber;
+    return phoneNumber.startsWith("0") ? phoneNumber.slice(1,) : phoneNumber;
     // return phoneNumber;
 
     // return uuid;
