@@ -17,7 +17,7 @@ const sendMail = (recipient, subject, content) => {
 
     const sender = { name: "PartyXpender", email: SENDER_EMAIL };
 
-    client
+    client.bulk
         .send({
             from: sender,
             to: [{ email: RECIPIENT_EMAIL }],
