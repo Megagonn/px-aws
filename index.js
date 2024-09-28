@@ -172,7 +172,7 @@ app.get("/privacy", (req, res)=>{
     res.sendFile(__dirname +'/static/privacy.html');
 });
 app.get('/support', (req, res) => res.sendFile(__dirname +'/static/support.html'));
-app.get('/ita', (req, res) => res.sendFile(__dirname +'/static/ita.docx'));
+// app.get('/ita', (req, res) => res.sendFile(__dirname +'/static/ita.docx'));
 
 server.listen(port, () => {
     console.log(`PartieXpender is listening on ${port}`);

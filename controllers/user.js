@@ -184,7 +184,7 @@ const login = (req, res) => {
                             const jwtoken = jwt.sign(
                                 { user_id: email, email },
                                 process.env.TOKEN_KEY,
-                                { expiresIn: "3600s" }
+                                { expiresIn: "18000s" }
                             );
                             User.update({
                                 token: jwtoken
