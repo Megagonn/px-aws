@@ -17,13 +17,12 @@ const sendMail = (recipient, subject, content) => {
 
     const sender = { name: "PartyXpender", email: SENDER_EMAIL };
 
-    client.bulk
-        .send({
-            from: sender,
-            to: [{ email: RECIPIENT_EMAIL }],
-            subject: subject,
-            text: content,
-        })
+    client.send({
+        from: sender,
+        to: [{ email: RECIPIENT_EMAIL }],
+        subject: subject,
+        text: content,
+    })
         .then(console.log)
         .catch(console.error);
 }
@@ -36,7 +35,7 @@ const newsMail = (recipients, subject, content) => {
 
     const sender = { name: "PartyXpender", email: SENDER_EMAIL };
 
-    client
+    client.bulk
         .send({
             from: sender,
             to: recipients,
