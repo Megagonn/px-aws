@@ -27,5 +27,24 @@ const sendMail = (recipient, subject, content) => {
         .then(console.log)
         .catch(console.error);
 }
+const newsMail = (recipients, subject, content) => {
+    const TOKEN = process.env.MAILTRAP_TOKEN_KEY;
+    const SENDER_EMAIL = "hello@partyxpender.com";
+    // const RECIPIENT_EMAIL = recipients;
 
-module.exports = { sendMail }
+    const client = new MailtrapClient({ token: TOKEN });
+
+    const sender = { name: "PartyXpender", email: SENDER_EMAIL };
+
+    client
+        .send({
+            from: sender,
+            to: recipients,
+            subject: subject,
+            text: content,
+        })
+        .then(console.log)
+        .catch(console.error);
+}
+
+module.exports = { sendMail, newsMail }

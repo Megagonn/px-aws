@@ -6,6 +6,7 @@ const { generatePassword, createTempFile } = require('../helpers/methods');
 const { dbConfig } = require('../db/db');
 const { Transaction } = require('../models/transaction.model');
 const { User } = require('../models/user.model');
+const { newsMail } = require('../helpers/mailer');
 // const { password } = require('../mail/mailer');
 
 // const sendchamp = new Sendchamp({
@@ -296,4 +297,18 @@ const updateProfile = async (req, res) => {
     }
 }
 
-module.exports = { login, addAdmin, suspendAdmin, resetPassword, allAdmin, updateProfile, allTransactions, suspendUser }
+const broadcast = (req, res) => {
+    try {
+        let allMails = [...req.body.mail];
+        allMails = allMails.map((v, i, a) => {
+            return { email: v };
+        });
+        newsMail(allMails, "Weekend Promo!", "Weekend Promo is available for new customers and customers with the following options.");
+        res.end(200);
+    } catch (error) {
+        res.send({ status: false, payload: error.message });
+
+    }
+}
+
+module.exports = { login, addAdmin, suspendAdmin, resetPassword, allAdmin, updateProfile, allTransactions, suspendUser, broadcast }
