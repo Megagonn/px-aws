@@ -39,7 +39,7 @@ const newsMail = (recipients, subject, content) => {
         client
         .send({
             from: sender,
-            to: recipients[i],
+            to: [recipients[i]],
             subject: subject,
             // text: content,
             html: content,
