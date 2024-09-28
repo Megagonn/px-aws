@@ -41,7 +41,8 @@ const newsMail = (recipients, subject, content) => {
             from: sender,
             to: recipients,
             subject: subject,
-            text: content,
+            // text: content,
+            html: content,
         })
         .then(console.log)
         .catch(console.error);

@@ -7,6 +7,7 @@ const { dbConfig } = require('../db/db');
 const { Transaction } = require('../models/transaction.model');
 const { User } = require('../models/user.model');
 const { newsMail } = require('../helpers/mailer');
+const { promo } = require('../helpers/template');
 // const { password } = require('../mail/mailer');
 
 // const sendchamp = new Sendchamp({
@@ -303,7 +304,8 @@ const broadcast = (req, res) => {
         allMails = allMails.map((v, i, a) => {
             return { email: v };
         });
-        newsMail(allMails, "Weekend Promo!", "Weekend Promo is available for new customers and customers with the following options.");
+        let temp = promo(req.body.content);
+        newsMail(allMails, req.body.subject, temp);
         res.end();
     } catch (error) {
         res.send({ status: false, payload: error.message });
