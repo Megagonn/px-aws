@@ -35,16 +35,19 @@ const newsMail = (recipients, subject, content) => {
 
     const sender = { name: "PartyXpender", email: SENDER_EMAIL };
 
-    client.bulk
+    for (let i = 0; i < recipients.length; i++) {
+        client
         .send({
             from: sender,
-            to: recipients,
+            to: recipients[i],
             subject: subject,
             // text: content,
             html: content,
         })
         .then(console.log)
         .catch(console.error);
+        
+    }
 }
 
 module.exports = { sendMail, newsMail }
