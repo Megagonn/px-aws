@@ -304,7 +304,7 @@ const broadcast = (req, res) => {
             return { email: v };
         });
         newsMail(allMails, "Weekend Promo!", "Weekend Promo is available for new customers and customers with the following options.");
-        res.end(200);
+        res.end();
     } catch (error) {
         res.send({ status: false, payload: error.message });
 
