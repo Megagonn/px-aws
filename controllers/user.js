@@ -6,7 +6,7 @@ const { generateOtp, generateReferralCode, generatePassword, uuid } = require('.
 const { User } = require('../models/user.model');
 const { Op, where } = require("sequelize");
 const { Notification } = require('../models/notification.model');
-const { createDVAcustomer, createAndAssignDVA } = require('../helpers/paystack');
+const { createDVAcustomer, createAndAssignDVA, createMonnifyAccount } = require('../helpers/paystack');
 const cloudinary = require('cloudinary');
 const formidable = require('formidable');
 const { Transaction } = require('../models/transaction.model');
@@ -177,6 +177,7 @@ const login = (req, res) => {
                 // var dva = await createAndAssignDVA(queryResult.email, queryResult.first_name, queryResult.last_name, queryResult.phone);
                 // console.log(dva);
                 if (queryResult) {
+                    await createMonnifyAccount({}, "ade Ola", "", "+2345678901");
                     bcrypt.compare(body.password, queryResult.password).then((result) => {
                         if (result) {
                             const email = body.email;
