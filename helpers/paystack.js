@@ -52,6 +52,7 @@ const createMonnifyAccount = async (customer, first_name, last_name, phone) => {
             "bvn": "21212121212",
             "customerName": "John Doe",
             "getAllAvailableBanks": false,
+            "preferredBanks": ["035","232","50515","058"]
         };
         let res = await axios.post(rootURL + reservedURL, body, {
             headers: header
