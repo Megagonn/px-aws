@@ -18,12 +18,14 @@ const getTokenFromMonify = async()=>{
         
         let res = await axios.post(loginURL, {}, {
             headers: {
-                "Authorization": `Basic ${encodedToken}`
+                'Authorization': `Basic ${encodedToken}`
             }
         })
-        console.log(res);
+        console.log(`This getTokenRes ${res}`);
         
         if (res.data.requestSuccessful) {
+            console.log(res.data.responseBody.accessToken);
+            
             return res.data.responseBody.accessToken;
         } return false;
 
