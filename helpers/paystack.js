@@ -11,28 +11,28 @@ const loginURL = "https://sandbox.monnify.com/api/v1/auth/login";
 //API KEY: MK_TEST_G82V12HHQU
 //SCRET KEY: SGVG0XN68VWXHFA4CSNPU87VXA8M7RWM
 
-const getTokenFromMonify = async()=>{
+const getTokenFromMonify = async () => {
     try {
         let encodedToken = Buffer.from(`${mak}:${msk}`).toString('base64');
         console.log(encodedToken);
-        
+
         let res = await axios.post(loginURL, {}, {
             headers: {
                 'Authorization': `Basic ${encodedToken}`
             }
         })
         console.log(`This getTokenRes ${res}`);
-        
+
         if (res.data.requestSuccessful) {
             console.log(res.data.responseBody.accessToken);
-            
+
             return res.data.responseBody.accessToken;
         } return false;
 
     } catch (error) {
         console.log(error);
         return false;
-        
+
     }
 }
 
@@ -53,13 +53,14 @@ const createMonnifyAccount = async (customer, first_name, last_name, phone) => {
             "customerName": "John Doe",
             "getAllAvailableBanks": false,
         };
-        let res = await axios.post(rootURL+reservedURL, body, {
+        let res = await axios.post(rootURL + reservedURL, body, {
             headers: header
         });
         console.log(res.data);
-        
+
         return res.data.requestSuccessful ? { status: true, payload: res.data } : { status: false, payload: res.data };
     } catch (error) {
+        console.log(error);
         return { status: false, payload: error }
     }
 }

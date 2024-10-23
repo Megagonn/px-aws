@@ -177,7 +177,9 @@ const login = (req, res) => {
                 // var dva = await createAndAssignDVA(queryResult.email, queryResult.first_name, queryResult.last_name, queryResult.phone);
                 // console.log(dva);
                 if (queryResult) {
-                    await createMonnifyAccount({}, "ade Ola", "", "+2345678901");
+                    var a = await createMonnifyAccount({}, "ade Ola", "", "+2345678901");
+                    console.log(a);
+
                     bcrypt.compare(body.password, queryResult.password).then((result) => {
                         if (result) {
                             const email = body.email;
@@ -328,7 +330,7 @@ const resendOtp = async (req, res) => {
                 if (update) {
                     sendMail(body.email, "PARTYXPENDER - RESEND OTP", `Hi, \n\nYour otp is ${userotp.otp}, it will expire in 15 minutes. Do not share with anyone. \n\nIf you do not initiate this request, kindly reply to this email or get in touch with us via Whatsapp or phone with +234-901-9517-438`),
 
-                    res.send({ status: true, payload: "OTP has been resent successfully. Expires in 15 minutes." });
+                        res.send({ status: true, payload: "OTP has been resent successfully. Expires in 15 minutes." });
                 } else {
                     res.send({ status: false, payload: "Couldn't resend OTP. Invalid email." })
                 }
