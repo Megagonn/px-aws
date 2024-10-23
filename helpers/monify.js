@@ -7,6 +7,7 @@ const contractCode = process.env.CONTRACT_CODE
 const rootURL = "https://sandbox.monnify.com";
 const reservedURL = "/api/v2/bank-transfer/reserved-accounts";
 const loginURL = "https://sandbox.monnify.com/api/v1/auth/login";
+const accountDetails = "/api/v2/bank-transfer/reserved-accounts/";
 
 //API KEY: MK_TEST_G82V12HHQU
 //SCRET KEY: SGVG0XN68VWXHFA4CSNPU87VXA8M7RWM
@@ -36,7 +37,7 @@ const getTokenFromMonify = async () => {
     }
 }
 
-const createMonnifyAccount = async (customer, first_name, last_name, phone) => {
+const createMonnifyAccount = async (customer) => {
     try {
         let token = await getTokenFromMonify();
         const header = {
@@ -65,35 +66,27 @@ const createMonnifyAccount = async (customer, first_name, last_name, phone) => {
         return { status: false, payload: error }
     }
 }
-// const createAndAssignDVA = async (email, first_name, last_name, phone) => {
-//     try {
-//         const header = {
-//             "Authorization": `Bearer ${sk}`,
-//             "Content-Type": "application/json",
-//         }
-//         let createCustomer = await axios.post("https://api.paystack.co/customer", { email: email, first_name: first_name, last_name, phone: phone }, {
-//             headers: header
-//         });
-//         console.log(createCustomer.data);
-//         if (createCustomer.data.status) {
 
-//             let res = await axios.post("https://api.paystack.co/dedicated_account", {
-//                 customer: createCustomer.data.data.customer_code,
-//                 "preferred_bank": "titan-paystack",
-//                 email: email, first_name: first_name, last_name, phone: phone,
-//                 country: "NG"
-//             }, {
-//                 headers: header
-//             });
-//             console.log(res.data);
-//             return res.data.status ? { status: true, payload: res.data.data } : { status: false, payload: res.data.data };
-//         } else {
+const fetchAccountDetails = async (accountRef) => {
+    try {
+        let token = await getTokenFromMonify();
+        const header = {
+            authorization: `Bearer ${token}`,
+            content_type: "Content-Type: application/json",
+        }
+        let accountDetailsRes = await axios.get(rootURL+accountDetails+accountRef, {
+            headers: header
+        });
+        console.log(accountDetailsRes.data);
+        if (accountDetailsRes.data.requestSuccessful) {
+            return  { status: true, payload: accountDetailsRes.data.responseBody };
+        } else {
 
-//             return { status: false, payload: `DVA creation failed. \n\n${createCustomer.data.message}` }
-//         }
-//     } catch (error) {
-//         return { status: false, payload: error }
-//     }
-// }
+            return { status: false, payload: `Failed to fetch account details. \n\n${accountDetailsRes.data.responseMessage}` }
+        }
+    } catch (error) {
+        return { status: false, payload: error }
+    }
+}
 
-module.exports = { createMonnifyAccount }
+module.exports = { createMonnifyAccount, fetchAccountDetails }
