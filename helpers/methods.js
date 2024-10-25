@@ -59,21 +59,15 @@ function createTempFile(data, extension = 'png') {
         });
     });
 }
-// const tempFilePath = (unit8list) => {
 
+const monifyAccountRef = (email) =>{
+    let coded = Buffer.from(email).toString('base64');
+    return `px_user_${coded}`;
+}
+const accountName = (fname, lname) =>{
+    return `PX-${fname} ${lname}`;
+}
 
+    
 
-//     // Example usage:
-//     const uint8Data = new Uint8Array([1, 2, 3, 4, 5]);
-//     createTempFile(uint8Data)
-//         .then(tempFilePath => {
-//             console.log('Temporary file created at:', tempFilePath);
-//             // Use the tempFilePath as needed
-//         })
-//         .catch(error => {
-//             console.error('Error creating temporary file:', error);
-//         });
-
-// }
-
-module.exports = { generateOtp, generateReferralCode, uuid, generateId, generatePassword, createTempFile };
+module.exports = { generateOtp, generateReferralCode, uuid, generateId, generatePassword, createTempFile, monifyAccountRef, accountName };
