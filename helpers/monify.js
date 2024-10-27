@@ -98,24 +98,28 @@ const fetchAccountDetails = async (accountRef) => {
     }
 }
 
-const allBanks = async() => {
+const allBanks = async () => {
     try {
         let token = await getTokenFromMonify();
         const header = {
             authorization: `Bearer ${token}`,
             content_type: "Content-Type: application/json",
         }
-        let res = await axios.post(rootURL+allBanksURL, {}, {
+        let res = await axios.post(rootURL + allBanksURL, {}, {
             headers: header
         })
+        console.log(res.data);
+
         res.data.requestSuccessful ? { status: true, payload: res.data.responseBody } : { status: false, payload: `Failed to fetch banks' list. \n\n${res.data.responseMessage}` };
     } catch (error) {
+        console.log(error);
+
         return { status: false, payload: error }
-        
+
     }
 }
 
-const getBalance = async(accountNumber)=>{
+const getBalance = async (accountNumber) => {
     try {
         let token = await getTokenFromMonify();
         const header = {
@@ -123,7 +127,7 @@ const getBalance = async(accountNumber)=>{
             content_type: "Content-Type: application/json",
         }
 
-        let res = await axios.get(rootURL+balanceURL+accountNumber, {
+        let res = await axios.get(rootURL + balanceURL + accountNumber, {
             headers: header
         });
 
@@ -131,11 +135,11 @@ const getBalance = async(accountNumber)=>{
 
     } catch (error) {
         return { status: false, payload: error }
-        
+
     }
 }
 
-const sendMoney = async(sender, reciever, amount)=>{
+const sendMoney = async (sender, reciever, amount) => {
     try {
         let token = await getTokenFromMonify();
         const header = {
@@ -143,25 +147,25 @@ const sendMoney = async(sender, reciever, amount)=>{
             content_type: "Content-Type: application/json",
         }
         let ref = withdrawalRef();
-        
+
         let body = {
             "amount": amount,
-            "reference":ref,
-            "narration":"Withrawal",
+            "reference": ref,
+            "narration": "Withrawal",
             "destinationBankCode": reciever.bankCode,
             "destinationAccountNumber": reciever.accountNumber,
             "destinationAccountName": reciever.accountName,
             "currency": "NGN",
             "sourceAccountNumber": sender.accountNumber,
         };
-        let res = await axios.post(rootURL+sendMoneyURL, body, {
+        let res = await axios.post(rootURL + sendMoneyURL, body, {
             headers: header
         });
 
         console.log(res.data);
-        return res.data.requestSuccessful ? {status: true, payload: "Withdrawal successful"} : {status: false, payload: `Withdrawal failed ${res.data.responseMessage}`};
+        return res.data.requestSuccessful ? { status: true, payload: "Withdrawal successful" } : { status: false, payload: `Withdrawal failed ${res.data.responseMessage}` };
     } catch (error) {
-        
+
     }
 }
 
