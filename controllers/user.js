@@ -919,23 +919,23 @@ const getLeaderboard = (req, res) => {
 
 const getAccountDetails = async (req, res) => {
     try {
-        console.log(req.body);
+        // console.log(req.body);
         
-        var response = await fetchAccountDetails("req.body.ref");
-        console.log(response);
-        res.send(response);
-        // Accounts.findOne({
-        //     where: {
-        //         account_email: req.body.email,
-        //     }
-        // }).then(account => {
-        //     if (account) {
-        //         res.send({status: true, payload: account});
-        //     }else{
-        //         res.send({status: false, payload: "Account not found."});
+        // var response = await fetchAccountDetails("req.body.ref");
+        // console.log(response);
+        // res.send(response);
+        Accounts.findOne({
+            where: {
+                account_email: req.body.email,
+            }
+        }).then(account => {
+            if (account) {
+                res.send({status: true, payload: account});
+            }else{
+                res.send({status: false, payload: "Account not found."});
 
-        //     }
-        // })
+            }
+        })
 
     } catch (error) {
         console.log(error);
