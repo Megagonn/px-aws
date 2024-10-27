@@ -13,6 +13,7 @@ const accountDetailsURL = "/api/v2/bank-transfer/reserved-accounts/";
 const allBanksURL = "/api/v1/sdk/transactions/banks";
 const balanceURL = "/api/v2/disbursements/wallet-balance?accountNumber=";
 const sendMoneyURL = "/api/v2/disbursements/single";
+const deallocateAccountURL = "/api/v1/bank-transfer/reserved-accounts/reference/";
 
 //API KEY: MK_TEST_G82V12HHQU
 //SCRET KEY: SGVG0XN68VWXHFA4CSNPU87VXA8M7RWM
@@ -51,6 +52,7 @@ const createMonnifyAccount = async (customer) => {
             authorization: `Bearer ${token}`,
             content_type: "Content-Type: application/json",
         }
+
         let body = {
             "accountReference": accountRef,
             "accountName": pxAccountName,

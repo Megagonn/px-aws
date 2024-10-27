@@ -114,12 +114,12 @@ const signup = async (req, res) => {
                                                 await Accounts.create({
                                                     name: '',
                                                     account_name: dva.payload.accountName,
-                                                    account_number: dva.payload.accountNumber,
-                                                    account_reference:dva.payload.accountReference,
+                                                    account_number: dva.payload.accounts[0].accountNumber,
+                                                    account_reference: dva.payload.accountReference,
                                                     account_email: dva.payload.customerEmail,
                                                     currency_code: dva.payload.currencyCode,
-                                                    bank_code: dva.payload.bankCode,
-                                                    bank_name: dva.payload.bankName,
+                                                    bank_code: dva.payload.accounts[0].bankCode,
+                                                    bank_name: dva.payload.accounts[0].bankName,
                                                     status: dva.payload.status,
                                                     reservation_reference: dva.payload.reservationReference,
                                                 }),
@@ -917,4 +917,17 @@ const getLeaderboard = (req, res) => {
     }
 }
 
-module.exports = { allUsers, signup, login, resendOtp, verifyOTP, resetPassword, addAddress, getUser, notification, updateProfile, deleteAccount, addImageURL, topup, getBalance, bioMetricLogin, xpend, addUser, getList, fetchTransactions, getLeaderboard, getAllUsers };
+const getAccountDetails = async (req, res) => {
+    try {
+        var response = await fetchAccountDetails(req.body);
+        console.log(response);
+        res.send(response);
+
+    } catch (error) {
+        console.log(error);
+
+        return { status: false, payload: error }
+    }
+}
+
+module.exports = { allUsers, signup, login, resendOtp, verifyOTP, resetPassword, addAddress, getUser, notification, updateProfile, deleteAccount, addImageURL, topup, getBalance, bioMetricLogin, xpend, addUser, getList, fetchTransactions, getLeaderboard, getAllUsers, getAccountDetails };

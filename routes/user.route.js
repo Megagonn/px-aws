@@ -16,7 +16,7 @@ router.post('/user/notification', user.notification);
 router.patch('/user', user.updateProfile);
 router.delete('/user', user.deleteAccount);
 router.post('/user/profile_picture', user.addImageURL);
-router.post('/user/fetch_account_details', fetchAccountDetails);
+router.post('/user/fetch_account_details', user.getAccountDetails);
 router.post('/user/get_balance', getBalance);
 router.get('/user/banks', allBanks);
 // router.post('/user/withdraw', Withdrawal);
