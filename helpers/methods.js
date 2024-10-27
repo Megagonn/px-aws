@@ -62,7 +62,7 @@ function createTempFile(data, extension = 'png') {
 
 const monifyAccountRef = (email) =>{
     let coded = Buffer.from(email).toString('base64');
-    return `px_user_${coded}`;
+    return `px-user-${coded}`;
 }
 const accountName = (fname, lname) =>{
     return `PX-${fname} ${lname}`;

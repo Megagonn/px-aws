@@ -83,7 +83,7 @@ const fetchAccountDetails = async (accountRef) => {
             authorization: `Bearer ${token}`,
             content_type: "Content-Type: application/json",
         }
-        let accountDetailsRes = await axios.get(rootURL + accountDetailsURL + "px_user_d29sdmVkb2xwaDE4QGdtYWlsLmNvbQ==", {
+        let accountDetailsRes = await axios.get(rootURL + accountDetailsURL + "my_ref1", {
             headers: header
         });
         console.log(accountDetailsRes.data);
