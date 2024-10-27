@@ -105,7 +105,7 @@ const allBanks = async () => {
             authorization: `Bearer ${token}`,
             content_type: "Content-Type: application/json",
         }
-        let res = await axios.post(rootURL + allBanksURL, {}, {
+        let res = await axios.get(rootURL + allBanksURL, {
             headers: header
         })
         console.log(res.data);
