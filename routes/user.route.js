@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const user = require('../controllers/user');
 const { setBudget, getBudget } = require('../controllers/payment');
-const { fetchAccountDetails, allBanks, getBalance } = require('../helpers/monify');
+const { getBalance } = require('../helpers/monify');
 
 router.post('/user/signup', user.signup);
 router.post('/user/login', user.login);
@@ -18,7 +18,7 @@ router.delete('/user', user.deleteAccount);
 router.post('/user/profile_picture', user.addImageURL);
 router.post('/user/fetch_account_details', user.getAccountDetails);
 router.post('/user/get_balance', getBalance);
-router.get('/user/banks', allBanks);
+router.get('/user/banks', user.getAllBanks);
 // router.post('/user/withdraw', Withdrawal);
 router.post('/user/budget', setBudget);
 router.post('/user/get_budget', getBudget);

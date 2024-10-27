@@ -6,7 +6,7 @@ const { generateOtp, generateReferralCode, generatePassword, uuid } = require('.
 const { User } = require('../models/user.model');
 const { Op, where } = require("sequelize");
 const { Notification } = require('../models/notification.model');
-const { createMonnifyAccount, fetchAccountDetails } = require('../helpers/monify');
+const { createMonnifyAccount, fetchAccountDetails, allBanks } = require('../helpers/monify');
 const cloudinary = require('cloudinary');
 const formidable = require('formidable');
 const { Transaction } = require('../models/transaction.model');
@@ -913,7 +913,7 @@ const getLeaderboard = (req, res) => {
         })
     } catch (error) {
         res.send({ status: false, payload: "Something went wrong. Please try again." });
-
+        
     }
 }
 
@@ -933,15 +933,26 @@ const getAccountDetails = async (req, res) => {
                 res.send({status: true, payload: account});
             }else{
                 res.send({status: false, payload: "Account not found."});
-
+                
             }
         })
-
+        
     } catch (error) {
         console.log(error);
-
-        return { status: false, payload: error }
+        
+        res.send({ status: false, payload: "Something went wrong. Please try again." });
     }
 }
 
-module.exports = { allUsers, signup, login, resendOtp, verifyOTP, resetPassword, addAddress, getUser, notification, updateProfile, deleteAccount, addImageURL, topup, getBalance, bioMetricLogin, xpend, addUser, getList, fetchTransactions, getLeaderboard, getAllUsers, getAccountDetails };
+const getAllBanks = async (req, res)=>{
+    try {
+        var banks = await allBanks();
+        res.send(banks);
+    } catch (error) {
+        
+        res.send({ status: false, payload: "Something went wrong. Please try again." });
+        
+    }
+}
+
+module.exports = { allUsers, signup, login, resendOtp, verifyOTP, resetPassword, addAddress, getUser, notification, updateProfile, deleteAccount, addImageURL, topup, getBalance, bioMetricLogin, xpend, addUser, getList, fetchTransactions, getLeaderboard, getAllUsers, getAccountDetails, getAllBanks };

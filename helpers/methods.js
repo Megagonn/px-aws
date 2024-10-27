@@ -68,6 +68,10 @@ const accountName = (fname, lname) =>{
     return `PX-${fname} ${lname}`;
 }
 
+const withdrawalRef = ()=>{
+    return Date.now();
+}
+
     
 
-module.exports = { generateOtp, generateReferralCode, uuid, generateId, generatePassword, createTempFile, monifyAccountRef, accountName };
+module.exports = { generateOtp, generateReferralCode, uuid, generateId, generatePassword, createTempFile, monifyAccountRef, accountName, withdrawalRef };

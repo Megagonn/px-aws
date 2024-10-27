@@ -1,4 +1,4 @@
-const { monifyAccountRef, accountName } = require('./methods');
+const { monifyAccountRef, accountName, withdrawalRef } = require('./methods');
 
 // const dedicated_account = 
 const axios = require('axios').default;
@@ -142,26 +142,27 @@ const sendMoney = async(sender, reciever, amount)=>{
             authorization: `Bearer ${token}`,
             content_type: "Content-Type: application/json",
         }
+        let ref = withdrawalRef();
         
         let body = {
-            "amount": 20,
-            "reference":"ben9-jlo00hdhdjjdfjoj--i",
-            "narration":"Test01",
-            "destinationBankCode": "057",
-            "destinationAccountNumber": "2085096393",
+            "amount": amount,
+            "reference":ref,
+            "narration":"Withrawal",
+            "destinationBankCode": reciever.bankCode,
+            "destinationAccountNumber": reciever.accountNumber,
+            "destinationAccountName": reciever.accountName,
             "currency": "NGN",
-            "sourceAccountNumber": "8016472829",
-            "destinationAccountName": "Marvelous Benji"
+            "sourceAccountNumber": sender.accountNumber,
         };
         let res = await axios.post(rootURL+sendMoneyURL, body, {
             headers: header
         });
 
         console.log(res.data);
-        
+        return res.data.requestSuccessful ? {status: true, payload: "Withdrawal successful"} : {status: false, payload: `Withdrawal failed ${res.data.responseMessage}`};
     } catch (error) {
         
     }
 }
 
-module.exports = { createMonnifyAccount, fetchAccountDetails, allBanks, getBalance }
+module.exports = { createMonnifyAccount, fetchAccountDetails, allBanks, getBalance, sendMoney }
