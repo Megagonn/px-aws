@@ -67,7 +67,7 @@ const createMonnifyAccount = async (customer) => {
         });
         console.log(res.data);
 
-        return res.data.requestSuccessful ? { status: true, payload: res.data } : { status: false, payload: res.data };
+        return res.data.requestSuccessful ? { status: true, payload: res.data.responseBody } : { status: false, payload: res.data };
     } catch (error) {
         console.log(error);
         return { status: false, payload: error }

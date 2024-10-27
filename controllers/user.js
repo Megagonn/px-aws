@@ -11,6 +11,7 @@ const cloudinary = require('cloudinary');
 const formidable = require('formidable');
 const { Transaction } = require('../models/transaction.model');
 const { sendMail } = require('../helpers/mailer');
+const { Accounts } = require('../models/accounts.model');
 // const { default: Sendchamp } = require('sendchamp-sdk');
 // const { sdk } = require("sendchamp");
 
@@ -81,7 +82,7 @@ const signup = async (req, res) => {
                                 console.log(dva);
                                 /// * * * Uncomment the above line once the Paystack setup is completed.
 
-                                if (true) {
+                                if (dva.status) {
                                     let uid = uuid(body.phone);
                                     User.create({
                                         first_name: body.first_name,
@@ -110,6 +111,18 @@ const signup = async (req, res) => {
                                         console.log(result);
                                         if (result) {
                                             await Promise.all([
+                                                await Accounts.create({
+                                                    name: '',
+                                                    account_name: dva.payload.accountName,
+                                                    account_number: dva.payload.accountNumber,
+                                                    account_reference:dva.payload.accountReference,
+                                                    account_email: dva.payload.customerEmail,
+                                                    currency_code: dva.payload.currencyCode,
+                                                    bank_code: dva.payload.bankCode,
+                                                    bank_name: dva.payload.bankName,
+                                                    status: dva.payload.status,
+                                                    reservation_reference: dva.payload.reservationReference,
+                                                }),
                                                 await Notification.create({
                                                     user_id: result.id,
                                                     email: result.email,
