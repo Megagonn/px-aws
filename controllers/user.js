@@ -77,8 +77,8 @@ const signup = async (req, res) => {
                                     { expiresIn: "3600s" }
                                 );
                                 var userotp = { otp: generateOtp(), timestamp: date }
-                                // var dva = await createAndAssignDVA(body.email, body.first_name, body.last_name, body.phone);
-                                // console.log(dva);
+                                var dva = await createMonnifyAccount(body);
+                                console.log(dva);
                                 /// * * * Uncomment the above line once the Paystack setup is completed.
 
                                 if (true) {
