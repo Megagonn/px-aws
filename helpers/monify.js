@@ -45,7 +45,7 @@ const getTokenFromMonify = async () => {
 const createMonnifyAccount = async (customer) => {
     try {
         let token = await getTokenFromMonify();
-        let accountRef = monifyAccountRef();
+        let accountRef = monifyAccountRef(customer.email);
         let pxAccountName = accountName(customer.first_name, customer.last_name);
         const header = {
             authorization: `Bearer ${token}`,
