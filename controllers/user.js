@@ -919,9 +919,9 @@ const getLeaderboard = (req, res) => {
 
 const getAccountDetails = async (req, res) => {
     try {
-        console.log(req.body);
+        // console.log(req.body);
         
-        var response = await fetchAccountDetails(req.body.ref);
+        var response = await fetchAccountDetails("req.body.ref");
         console.log(response);
         res.send(response);
 
