@@ -110,7 +110,7 @@ const allBanks = async () => {
         })
         console.log(res.data);
 
-        res.data.requestSuccessful ? { status: true, payload: res.data.responseBody } : { status: false, payload: `Failed to fetch banks' list. \n\n${res.data.responseMessage}` };
+       return res.data.requestSuccessful ? { status: true, payload: res.data.responseBody } : { status: false, payload: `Failed to fetch banks' list. \n\n${res.data.responseMessage}` };
     } catch (error) {
         console.log(error);
 
@@ -131,7 +131,7 @@ const getBalance = async (accountNumber) => {
             headers: header
         });
 
-        res.data.requestSuccessful ? { status: true, payload: res.data.responseBody } : { status: false, payload: `Failed to fetch balance. \n\n${res.data.responseMessage}` };
+       return res.data.requestSuccessful ? { status: true, payload: res.data.responseBody } : { status: false, payload: `Failed to fetch balance. \n\n${res.data.responseMessage}` };
 
     } catch (error) {
         return { status: false, payload: error }
