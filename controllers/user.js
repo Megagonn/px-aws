@@ -190,8 +190,8 @@ const login = (req, res) => {
                 // var dva = await createAndAssignDVA(queryResult.email, queryResult.first_name, queryResult.last_name, queryResult.phone);
                 // console.log(dva);
                 if (queryResult) {
-                    var a = await createMonnifyAccount(queryResult);
-                    console.log(a);
+                    // var a = await createMonnifyAccount(queryResult);
+                    // console.log(a);
 
                     bcrypt.compare(body.password, queryResult.password).then((result) => {
                         if (result) {

@@ -139,7 +139,7 @@ const getBalance = async (accountNumber) => {
     }
 }
 
-const sendMoney = async (sender, reciever, amount) => {
+const sendMoney = async (senderAccountNumber, reciever, amount) => {
     try {
         let token = await getTokenFromMonify();
         const header = {
@@ -156,7 +156,7 @@ const sendMoney = async (sender, reciever, amount) => {
             "destinationAccountNumber": reciever.accountNumber,
             "destinationAccountName": reciever.accountName,
             "currency": "NGN",
-            "sourceAccountNumber": sender.accountNumber,
+            "sourceAccountNumber": senderAccountNumber,
         };
         let res = await axios.post(rootURL + sendMoneyURL, body, {
             headers: header
@@ -165,7 +165,7 @@ const sendMoney = async (sender, reciever, amount) => {
         console.log(res.data);
         return res.data.requestSuccessful ? { status: true, payload: "Withdrawal successful" } : { status: false, payload: `Withdrawal failed ${res.data.responseMessage}` };
     } catch (error) {
-
+        return { status: false, payload: error };
     }
 }
 
