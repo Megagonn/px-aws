@@ -55,29 +55,30 @@ app.use("/api/v0/admins", adminRoute);
 
 
 //webhooks
-app.post('/api/v0/webhooks/flutterwave_webhook', (req, res) => {
+app.post('/api/v0/webhooks/monnify_webhooks', (req, res) => {
     let body = req.body;
-    const secretHash = process.env.FLW_SECRET_HASH;
-    const signature = req.headers["verif-hash"];
-    console.log(req.headers);
-    if (!signature || signature !== secretHash) {
-        // This response is not from Flutterwave; discard
-        // console.log(signature);
-        // console.log(secretHash);
-        // console.log(signature !== secretHash)
-        return res.status(401).end();
-    }
-    if (body.event === 'charge.completed') {
-        if (body.data.status === 'successful') {
+    // const secretHash = process.env.FLW_SECRET_HASH;
+    // const signature = req.headers["verif-hash"];
+    // console.log(req.headers);
+    // if (!signature || signature !== secretHash) {
+    //     // This response is not from Flutterwave; discard
+    //     // console.log(signature);
+    //     // console.log(secretHash);
+    //     // console.log(signature !== secretHash)
+    //     return res.status(401).end();
+    // }
+    ///Successful top up
+    if (body.eventType === 'SUCCESSFUL_TRANSACTION') {
+        // if (body.data.status === 'successful') {
             let date = new Date().getTime();
             User.findOne({
                 where: {
-                    email: body.data.customer.email,
+                    email: body.eventData.customer.email,
                 }
             }).then((user) => {
                 if (user) {
                     User.update({
-                        wallet: user.wallet + body.data.charged_amount,
+                        wallet: user.wallet + body.eventData.settlementAmount,
                     }, {
                         where: {
                             email: user.email
@@ -96,22 +97,56 @@ app.post('/api/v0/webhooks/flutterwave_webhook', (req, res) => {
                             email: user.email,
                             uid: user.uid,
                             title: "Purse funded",
-                            subtitle: `A sum of ₦${body.data.charged_amount} has been added into your account`,
+                            subtitle: `A sum of ₦${body.eventData.settlementAmount} has been added into your account`,
                             type: "receive",
-                            amount: body.data.charged_amount,
+                            amount: body.eventData.settlementAmount,
                             timestamp: date,
 
                         });
                     })
                 }
             })
-        }
+        // }
     }
-    if (body.event === 'transfer.completed') {
-        console.log(body.data);
-        if (body.data.status === 'SUCCESSFUL') {
-            
-        }
+    if (body.eventType === 'SUCCESSFUL_DISBURSEMENT') {
+        console.log(body);
+        let date = new Date().getTime();
+            User.findOne({
+                where: {
+                    email: body.eventData.customer.email,
+                }
+            }).then((user) => {
+                if (user) {
+                    User.update({
+                        wallet: user.wallet - body.eventData.amount,
+                    }, {
+                        where: {
+                            email: user.email
+                        }
+                    }).then(async (update) => {
+                        await Notification.create({
+                            email: user.email,
+                            phone: user.phone,
+                            user_id: user.id,
+                            details: JSON.stringify({
+                                content: "Your purse has been credited successfully",
+                                timestamp: date,
+                            })
+                        });
+                        await Transaction.create({
+                            email: user.email,
+                            uid: user.uid,
+                            title: "Withdrawal",
+                            subtitle: `Successful withdrawal of ₦${body.eventData.amount}.`,
+                            type: "xpend",
+                            amount: body.eventData.amount,
+                            timestamp: date,
+
+                        });
+                    })
+                }
+            })
+        
     }
     console.log(req.body);
     res.status(200).end()

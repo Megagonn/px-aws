@@ -104,7 +104,7 @@ const signup = async (req, res) => {
                                         total_xpent: 0,
                                         list: JSON.stringify([]),
                                         // referral_code: generateReferralCode(body.first_name, body.phone),
-                                        account_number: uid,
+                                        account_number: dva.payload.accounts[0].accountNumber,
                                         // account_number: dva.payload.account_number,
 
                                     }).then(async (result) => {
@@ -133,7 +133,7 @@ const signup = async (req, res) => {
                                                     }),
                                                 }),
                                                 sendMail(result.email, "Welcome to PartieXpender.", "Welcome to PARTYXPENDER! 🎉\n\nWe’re excited to have you join our community. Explore, xpend & enjoy, and make the most of all the features we’ve designed to help you enjoy your time. If you need any assistance, our support team is here to help.\n\nLet’s get started on this exciting experience together!"),
-                                                sendMail(result.email, "PARTYXPENDER - SIGNUP OTP", `Welcome to PARTYXPENDER! 🎉\n\nYour otp is ${userotp.otp}, it will expire in 15 minutes. Do not share with anyone. \n\nIf you do not initiate this request, kindly reply to this email or get in touch with us via Whatsapp or phone with +234-901-9517-438`),
+                                                sendMail(result.email, "PARTYXPENDER - SIGNUP OTP", `Welcome to PARTYXPENDER! 🎉\n\nYour otp is ${userotp.otp}, it will expire in 15 minutes. Do not share with anyone. \n\nIf you do not initiate this request, kindly reply to this email or get in touch with us via Whatsapp or phone on +234-901-9517-438`),
 
                                             ])
                                             res.send({ status: true, payload: { msg: "Registration successful!", id: result.id, token: jwtoken, email: result.email, phone: result.phone, uid: result.uid } });
