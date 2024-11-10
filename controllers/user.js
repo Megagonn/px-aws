@@ -840,21 +840,34 @@ const addUser = (xuid, ruid) => {
                                 // list: JSON.stringify([{ uid, username, image_URL }])
                                 list: JSON.stringify(pp)
                             }, { where: { uid: xuid } });
+                            return true;
                         } else {
                             console.log("User found");
+                            return false;
 
                         }
                     } else {
-
+                        return false;
                     }
                 })
             } else {
                 console.log(`${ruid} not found`);
+                return false;
             }
         })
     } catch (error) {
         console.log(error);
+        return false;
 
+    }
+}
+
+const addUserAPi = (req, res) => {
+    try {
+        var add = addUser(req.body.xuid, req.body.ruid);
+        add ? res.send({ status: add, payload: 'User added successfully' }) : res.send({ status: add, payload: 'Something went wrong' });
+    } catch (error) {
+        res.send({ status: false, payload: "Something went wrong" })
     }
 }
 
@@ -913,14 +926,14 @@ const getLeaderboard = (req, res) => {
         })
     } catch (error) {
         res.send({ status: false, payload: "Something went wrong. Please try again." });
-        
+
     }
 }
 
 const getAccountDetails = async (req, res) => {
     try {
         // console.log(req.body);
-        
+
         // var response = await fetchAccountDetails("req.body.ref");
         // console.log(response);
         // res.send(response);
@@ -930,29 +943,29 @@ const getAccountDetails = async (req, res) => {
             }
         }).then(account => {
             if (account) {
-                res.send({status: true, payload: account});
-            }else{
-                res.send({status: false, payload: "Account not found."});
-                
+                res.send({ status: true, payload: account });
+            } else {
+                res.send({ status: false, payload: "Account not found." });
+
             }
         })
-        
+
     } catch (error) {
         console.log(error);
-        
+
         res.send({ status: false, payload: "Something went wrong. Please try again." });
     }
 }
 
-const getAllBanks = async (req, res)=>{
+const getAllBanks = async (req, res) => {
     try {
         var banks = await allBanks();
         res.send(banks);
     } catch (error) {
-        
+
         res.send({ status: false, payload: "Something went wrong. Please try again." });
-        
+
     }
 }
 
-module.exports = { allUsers, signup, login, resendOtp, verifyOTP, resetPassword, addAddress, getUser, notification, updateProfile, deleteAccount, addImageURL, topup, getBalance, bioMetricLogin, xpend, addUser, getList, fetchTransactions, getLeaderboard, getAllUsers, getAccountDetails, getAllBanks };
+module.exports = { allUsers, signup, login, resendOtp, verifyOTP, resetPassword, addAddress, getUser, notification, updateProfile, deleteAccount, addImageURL, topup, getBalance, bioMetricLogin, xpend, addUser, getList, fetchTransactions, getLeaderboard, getAllUsers, getAccountDetails, getAllBanks, addUserAPi };

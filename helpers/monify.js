@@ -59,7 +59,7 @@ const createMonnifyAccount = async (customer) => {
             "currencyCode": "NGN",
             "contractCode": contractCode,
             "customerEmail": customer.email,
-            "bvn": "21212121212",
+            "nin": customer.nin,
             "customerName": `${customer.first_name} ${customer.last_name}`,
             "getAllAvailableBanks": false,
             "preferredBanks": ["035"],

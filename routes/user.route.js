@@ -12,6 +12,7 @@ router.post('/user/verify_otp', user.verifyOTP);
 router.post('/user/reset_password', user.resetPassword);
 router.post('/user/balance', user.getBalance);
 router.post('/user', user.getUser);
+router.post('/user/add_user', user.addUserAPi);
 router.post('/user/notification', user.notification);
 router.patch('/user', user.updateProfile);
 router.delete('/user', user.deleteAccount);
