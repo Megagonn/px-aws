@@ -9,7 +9,7 @@ const { MailtrapClient } = require("mailtrap")
 
 
 const sendMail = (recipient, subject, content) => {
-    const TOKEN = process.env.MAILTRAP_TOKEN_KEY;
+    const TOKEN = "2a6c325104e581ea8887b992dd3b8e56";//process.env.MAILTRAP_TOKEN_KEY;
     const SENDER_EMAIL = "hello@partyxpender.com";
     const RECIPIENT_EMAIL = recipient;
 
@@ -27,7 +27,7 @@ const sendMail = (recipient, subject, content) => {
         .catch(console.error);
 }
 const newsMail = (recipients, subject, content) => {
-    const TOKEN = process.env.MAILTRAP_TOKEN_KEY;
+    const TOKEN = "2a6c325104e581ea8887b992dd3b8e56";//process.env.MAILTRAP_TOKEN_KEY;
     const SENDER_EMAIL = "hello@partyxpender.com";
     // const RECIPIENT_EMAIL = recipients;
 
